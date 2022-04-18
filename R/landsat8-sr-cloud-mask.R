@@ -8,18 +8,18 @@ maskL8sr <- function(image) {
   # Bit 2 - Cirrus
   # Bit 3 - Cloud
   # Bit 4 - Cloud Shadow
-  qaMask = image$select('QA_PIXEL')$bitwiseAnd(strtoi('11111', 2))$eq(0)
-  saturationMask = image$select('QA_RADSAT')$eq(0)
+  qaMask <- image$select('QA_PIXEL')$bitwiseAnd(strtoi('11111', 2))$eq(0)
+  saturationMask <- image$select('QA_RADSAT')$eq(0)
 
   # Apply the scaling factors to the appropriate bands
-  opticalBands = image$select('SR_B.')$multiply(0.0000275)$add(-0.2)
-  thermalBands = image$select('ST_B.*')$multiply(0.00341802)$add(149.0)
+  opticalBands <- image$select('SR_B.')$multiply(0.0000275)$add(-0.2)
+  thermalBands <- image$select('ST_B.*')$multiply(0.00341802)$add(149.0)
 
   # Replace the original bands with the scaled ones and apply the masks.
-  out = image$addBands(opticalBands, NULL, TRUE)
-  out = out$addBands(thermalBands, NULL, TRUE)
-  out = out$updateMask(qaMask)
-  out = out$updateMask(saturationMask)
+  out <- image$addBands(opticalBands, NULL, TRUE)
+  out <- out$addBands(thermalBands, NULL, TRUE)
+  out <- out$updateMask(qaMask)
+  out <- out$updateMask(saturationMask)
 
   return(out)
 }
