@@ -1,6 +1,5 @@
 library(rgee)
 
-ee_Initialize()
 
 maskL8sr <- function(image) {
   # Bit 0 - Fill
